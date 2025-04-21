@@ -100,7 +100,7 @@ if(productList!=null && productList.length!=0)
         ResetForm();
         
         storedProducts = JSON.parse(localStorage.getItem('productLst'))
-        
+
         DisplayData();
     }
 
@@ -141,16 +141,23 @@ function UpdateProduct(index)
 {
     var productToEdit = productList[index];
 
-    productToEdit.name = productName.value;
-    productToEdit.category = productCategory.value;
-    productToEdit.price = productPrice.value;
-    productToEdit.description =productDesc.value;
 
-    localStorage.setItem('productLst',JSON.stringify(productList))
+    if(productName.value!='' && productCategory.value!='' && productPrice.value!='' &&productDesc.value!='')
+    {
+        productToEdit.name = productName.value;
+        productToEdit.category = productCategory.value;
+        productToEdit.price = productPrice.value;
+        productToEdit.description =productDesc.value;
+    
+        localStorage.setItem('productLst',JSON.stringify(productList))
+    
+        storedProducts = JSON.parse(localStorage.getItem('productLst'))
+    
+        ResetForm();
+        DisplayData();
 
-    storedProducts = JSON.parse(localStorage.getItem('productLst'))
-
-    DisplayData();
+    }
+    
 
 };
 
@@ -166,20 +173,38 @@ function DisplayData()
 {
     tableBody.innerHTML=''; // reset table to reprint data including data appeared in table
 
-    if(storedProducts==undefined)
+    if(productList==undefined)
     {
-        storedProducts=[]
+        productList=[]
     }
     else
     {
-        for(var i=0 ; i<storedProducts?.length ; i++)
+
+        var searchInput = document.getElementById('search');
+
+        if(searchInput.value!='')
+        {
+            for(var i=0 ; i<productList.length ; i++)
+            {
+                if(productList[i].name != searchInput.value)
+                {
+                    productList.splice(i,1);
+                }
+            }
+        }
+        else
+        {
+            productList =storedProducts = JSON.parse(localStorage.getItem('productLst'))
+        }
+
+        for(var i=0 ; i<productList?.length ; i++)
             {
                 tableBody.innerHTML +=`<tr">
                 <td>${i+1}</td>
-                <td>${storedProducts[i].name}</td>
-                <td>${storedProducts[i].category}</td>
-                <td>${storedProducts[i].price}</td>
-                <td>${storedProducts[i].description}</td>
+                <td>${productList[i].name}</td>
+                <td>${productList[i].category}</td>
+                <td>${productList[i].price}</td>
+                <td>${productList[i].description}</td>
                 <td><input type="button" class="btn btn-outline-danger" value="Delete" onclick=DeleteProduct(${i})></td>
                 <td><input type="button" class="btn btn-outline-warning" value="Update" onclick=PrintDataToUpdateProduct(${i})></td>
                 </tr>`
