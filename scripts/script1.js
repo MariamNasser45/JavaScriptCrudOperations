@@ -186,7 +186,7 @@ function DisplayData()
         {
             for(var i=0 ; i<productList.length ; i++)
             {
-                if(productList[i].name != searchInput.value)
+                if(!productList[i].name.includes(searchInput.value))
                 {
                     productList.splice(i,1);
                 }
