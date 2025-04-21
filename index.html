@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <title>Js Task1</title>
+</head>
+<body>
+        <div class="container py-3">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                    <h3  class="justify-content-center m-3">Products Form</h3>
+                </div>
+            </div>
+    
+            <div class="row mt-3 d-flex justify-content-center">
+                <input id="name" class="col-8" type="text" placeholder="Product Name">
+            </div>
+            <div class="row mt-3 d-flex justify-content-center">
+                <input id="category" class="col-8" type="text" placeholder="Category">
+            </div>
+            <div class="row mt-3 d-flex justify-content-center">
+                <input id="price" class="col-8" type="number" placeholder="Price">
+            </div>
+            <div class="row mt-3 d-flex justify-content-center">
+                <textarea id="desc" class="col-8" placeholder="Description"></textarea>
+            </div>
+
+            <div class="row m-3 justify-content-center">
+              
+                <input type="submit" id="addBtn" class="col-3 m-2 btn btn-outline-success" value="Submit" onclick="AddProduct()"> 
+
+                <input type="submit" class="col-3 m-2 btn btn-outline-warning" value="Reset Form" onclick="ResetForm()">        
+
+            </div>
+            
+        </div>
+
+    <div class="container d-flex justify-content-center">
+        <table class="table table-striped w-75">
+            <thead >
+                <th>#</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Description</th>
+            </thead>
+            <tbody id="body">
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <script src="./scripts/script1.js"></script>
+</body>
+</html>
