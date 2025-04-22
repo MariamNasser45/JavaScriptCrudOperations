@@ -171,6 +171,8 @@ function ResetForm()
 
 function DisplayData()
 {
+    productList =storedProducts = JSON.parse(localStorage.getItem('productLst'))
+
     tableBody.innerHTML=''; // reset table to reprint data including data appeared in table
 
     if(productList==undefined)
@@ -186,15 +188,12 @@ function DisplayData()
         {
             for(var i=0 ; i<productList.length ; i++)
             {
-                if(!productList[i].name.includes(searchInput.value))
+                if(!(productList[i].name.includes(searchInput.value) || productList[i].category.includes(searchInput.value) || productList[i].price.includes(searchInput.value) || productList[i].description.includes(searchInput.value)))
                 {
                     productList.splice(i,1);
                 }
+                
             }
-        }
-        else
-        {
-            productList =storedProducts = JSON.parse(localStorage.getItem('productLst'))
         }
 
         for(var i=0 ; i<productList?.length ; i++)
