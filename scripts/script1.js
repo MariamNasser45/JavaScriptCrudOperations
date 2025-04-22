@@ -110,6 +110,7 @@ if(productList!=null && productList.length!=0)
 
 function DeleteProduct(index)
 {   
+    productList = JSON.parse(localStorage.getItem('productLst'));
     productList.splice(index,1) // because array start with 0 index and id of list start from1 set index=index-1
 
     localStorage.setItem('productLst',JSON.stringify(productList))
@@ -139,17 +140,18 @@ function PrintDataToUpdateProduct(index)
 
 function UpdateProduct(index)
 {
-    var productToEdit = productList[index];
+    storedProducts = JSON.parse(localStorage.getItem('productLst'))
 
+    var productToEdit = storedProducts[index];
 
     if(productName.value!='' && productCategory.value!='' && productPrice.value!='' &&productDesc.value!='')
     {
-        productToEdit.name = productName.value;
-        productToEdit.category = productCategory.value;
-        productToEdit.price = productPrice.value;
-        productToEdit.description =productDesc.value;
+        storedProducts[index].name = productName.value;
+        storedProducts[index].category = productCategory.value;
+        storedProducts[index].price = productPrice.value;
+        storedProducts[index].description =productDesc.value;
     
-        localStorage.setItem('productLst',JSON.stringify(productList))
+        localStorage.setItem('productLst',JSON.stringify(storedProducts))
     
         storedProducts = JSON.parse(localStorage.getItem('productLst'))
     
@@ -171,7 +173,7 @@ function ResetForm()
 
 function DisplayData()
 {
-    productList =storedProducts = JSON.parse(localStorage.getItem('productLst'))
+    productList = JSON.parse(localStorage.getItem('productLst'))
 
     tableBody.innerHTML=''; // reset table to reprint data including data appeared in table
 
@@ -186,15 +188,20 @@ function DisplayData()
 
         if(searchInput.value!='')
         {
+            var lstToDisplay = [];
+
             for(var i=0 ; i<productList.length ; i++)
             {
-                if(!(productList[i].name.includes(searchInput.value) || productList[i].category.includes(searchInput.value) || productList[i].price.includes(searchInput.value) || productList[i].description.includes(searchInput.value)))
+                if((productList[i].name.includes(searchInput.value) || productList[i].category.includes(searchInput.value) || productList[i].price.includes(searchInput.value) || productList[i].description.includes(searchInput.value)))
                 {
-                    productList.splice(i,1);
+                    lstToDisplay.push(productList[i]);
                 }
                 
             }
+
+            productList = lstToDisplay;
         }
+
 
         for(var i=0 ; i<productList?.length ; i++)
             {
