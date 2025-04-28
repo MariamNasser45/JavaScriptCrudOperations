@@ -217,3 +217,157 @@ function DisplayData()
             }
     }    
 };
+
+
+////////////////////// DOM ///////////////////////
+
+// var elem = document.getElementById("x");
+
+// elem.style.width = "100px";
+// elem.style.height = "200px";
+
+
+// document.addEventListener("mousemove",moveImage)
+
+// function moveImage(e)
+// {
+//     console.log(e.clientY);
+//     console.log(e.clientX);
+
+//     elem.style.left = e.clientX;
+//     elem.style.top = e.clientY;
+// };
+
+
+////////////////Regular Expression //////////////////////////////
+
+var nameAndcategoryRegex = /^[A-Z][a-z]{2,10}$/
+var descriptionRegex = /^[A-Z][a-z]{10,}$/
+var priceRegex = /^[1-9][0-9]{2,3}|10000$/
+
+var nameErrorBlock = document.getElementById("nameErr");
+var categoryErrorBlock = document.getElementById("catErr");
+var priceErrorBlock = document.getElementById("priceErr");
+var descriptionErrorBlock = document.getElementById("descErr");
+
+
+
+
+function CheckNameAndCategory(name=null , category = null)
+{
+    if(name!=null)
+    {
+        if(nameAndcategoryRegex.test(name) == true)
+            {
+                productName.classList.add("is-valid");
+                productName.classList.remove("is-invalid");
+        
+                nameErrorBlock.classList.add("d-none")
+                nameErrorBlock.classList.remove("d-block")
+            }
+            else
+            {
+                productName.classList.remove("is-valid");
+                productName.classList.add("is-invalid");
+        
+                nameErrorBlock.innerText= "Product name must be start with capital letter and contain small letters and it's minimum lenght is 2"
+                nameErrorBlock.classList.remove("d-none")
+                nameErrorBlock.classList.add("d-block")
+        
+            }
+    }
+
+    if(category!=null)
+        {
+            if(nameAndcategoryRegex.test(category) == true)
+                {
+                    productName.classList.add("is-valid");
+                    productName.classList.remove("is-invalid");
+            
+                    categoryErrorBlock.classList.add("d-none")
+                    categoryErrorBlock.classList.remove("d-block")
+                }
+                else
+                {
+                    productName.classList.remove("is-valid");
+                    productName.classList.add("is-invalid");
+            
+                    categoryErrorBlock.innerText= "Product Category must be start with capital letter and contain small letters and it's minimum lenght is 2"
+                    categoryErrorBlock.classList.remove("d-none")
+                    categoryErrorBlock.classList.add("d-block")
+            
+                }
+        }
+
+}
+
+function CheckPrice(price)
+{
+    if(priceRegex.test(price) == true)
+        {
+            productPrice.classList.add("is-valid");
+            productPrice.classList.remove("is-invalid");
+    
+            priceErrorBlock.classList.add("d-none")
+            priceErrorBlock.classList.remove("d-block")
+        }
+        else
+        {
+            productPrice.classList.remove("is-valid");
+            productPrice.classList.add("is-invalid");
+    
+            priceErrorBlock.innerText= "Price Must Be Between 100 and 10000"
+            priceErrorBlock.classList.remove("d-none")
+            priceErrorBlock.classList.add("d-block")
+    
+        }
+
+
+
+}
+
+function CheckDescription(description)
+{
+    if(descriptionRegex.test(description) == true)
+        {
+            productDesc.classList.add("is-valid");
+            productDesc.classList.remove("is-invalid");
+    
+            descriptionErrorBlock.classList.add("d-none")
+            descriptionErrorBlock.classList.remove("d-block")
+        }
+        else
+        {
+            productDesc.classList.remove("is-valid");
+            productDesc.classList.add("is-invalid");
+    
+            descriptionErrorBlock.innerText= "Product Description can't be less than 10 degits"
+            descriptionErrorBlock.classList.remove("d-none")
+            descriptionErrorBlock.classList.add("d-block")
+    
+        }
+
+}
+
+productName.addEventListener("keyup", function(){
+    
+ CheckNameAndCategory(productName.value , null)}
+);
+
+productCategory.addEventListener("keyup" , function()
+{
+    CheckNameAndCategory(null,productCategory.value)}
+
+);
+
+productPrice.addEventListener("keyup" , function()
+{
+    CheckPrice(productPrice.value)}
+
+);
+
+productDesc.addEventListener("keyup" , function()
+{
+    CheckDescription(productDesc.value)}
+
+);
