@@ -281,16 +281,16 @@ function CheckNameAndCategory(name=null , category = null)
         {
             if(nameAndcategoryRegex.test(category) == true)
                 {
-                    productName.classList.add("is-valid");
-                    productName.classList.remove("is-invalid");
+                    productCategory.classList.add("is-valid");
+                    productCategory.classList.remove("is-invalid");
             
                     categoryErrorBlock.classList.add("d-none")
                     categoryErrorBlock.classList.remove("d-block")
                 }
                 else
                 {
-                    productName.classList.remove("is-valid");
-                    productName.classList.add("is-invalid");
+                    productCategory.classList.remove("is-valid");
+                    productCategory.classList.add("is-invalid");
             
                     categoryErrorBlock.innerText= "Product Category must be start with capital letter and contain small letters and it's minimum lenght is 2"
                     categoryErrorBlock.classList.remove("d-none")
