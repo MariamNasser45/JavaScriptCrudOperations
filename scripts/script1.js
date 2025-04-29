@@ -77,16 +77,16 @@ DisplayData();
 function AddProduct()
 {
 
-var index =0;
+    var index =0;
 
-if(productList!=null && productList.length!=0)
-{
+    if(productList!=null && productList.length!=0)
+    {
+        var lastIndex = (productList.length)+1; 
+    }
+    else
+    lastIndex=1;
 
-    lastIndex = (productList.length)+1; 
-
-}
-
-    var product = {name:productName.value,category:productCategory.value,price:productPrice.value,description:productDesc.value};
+    var product = {id:lastIndex,name:productName.value,category:productCategory.value,price:productPrice.value,description:productDesc.value};
 
     console.log(product);
 
@@ -108,10 +108,14 @@ if(productList!=null && productList.length!=0)
 };
 
 
-function DeleteProduct(index)
+function DeleteProduct(id)
 {   
     productList = JSON.parse(localStorage.getItem('productLst'));
-    productList.splice(index,1) // because array start with 0 index and id of list start from1 set index=index-1
+
+    itemIndex = productList.findIndex(lst=>lst.id==id);
+
+
+    productList.splice(itemIndex,1) // because array start with 0 index and id of list start from1 set index=index-1
 
     localStorage.setItem('productLst',JSON.stringify(productList))
 
@@ -121,9 +125,11 @@ function DeleteProduct(index)
 };
 
 //To Apper Its data in inputs
-function PrintDataToUpdateProduct(index)
+function PrintDataToUpdateProduct(id)
 {
-    var printProductToEdit = productList[index];
+    var itemIndex = productList.findIndex(lst=>lst.id==id);
+
+    var printProductToEdit = productList[itemIndex]
 
     productName.value=printProductToEdit.name;
     productCategory.value = printProductToEdit.category;
@@ -132,24 +138,26 @@ function PrintDataToUpdateProduct(index)
 
     var getAddBtn = document.getElementById('addBtn');
 
-    getAddBtn.setAttribute ("onclick",`UpdateProduct(${index})`);
+    getAddBtn.setAttribute ("onclick",`UpdateProduct(${id})`);
 
     console.log(getAddBtn);
 
 };
 
-function UpdateProduct(index)
+function UpdateProduct(id)
 {
     storedProducts = JSON.parse(localStorage.getItem('productLst'))
 
-    var productToEdit = storedProducts[index];
+    itemIndex = storedProducts.findIndex(lst=>lst.id==id);
+
+    var productToEdit = storedProducts[itemIndex];
 
     if(productName.value!='' && productCategory.value!='' && productPrice.value!='' &&productDesc.value!='')
     {
-        storedProducts[index].name = productName.value;
-        storedProducts[index].category = productCategory.value;
-        storedProducts[index].price = productPrice.value;
-        storedProducts[index].description =productDesc.value;
+        storedProducts[itemIndex].name = productName.value;
+        storedProducts[itemIndex].category = productCategory.value;
+        storedProducts[itemIndex].price = productPrice.value;
+        storedProducts[itemIndex].description =productDesc.value;
     
         localStorage.setItem('productLst',JSON.stringify(storedProducts))
     
@@ -206,13 +214,13 @@ function DisplayData()
         for(var i=0 ; i<productList?.length ; i++)
             {
                 tableBody.innerHTML +=`<tr">
-                <td>${i+1}</td>
+                <td>${productList[i].id}</td>
                 <td>${productList[i].name}</td>
                 <td>${productList[i].category}</td>
                 <td>${productList[i].price}</td>
                 <td>${productList[i].description}</td>
-                <td><input type="button" class="btn btn-outline-danger" value="Delete" onclick=DeleteProduct(${i})></td>
-                <td><input type="button" class="btn btn-outline-warning" value="Update" onclick=PrintDataToUpdateProduct(${i})></td>
+                <td><input type="button" class="btn btn-outline-danger" value="Delete" onclick=DeleteProduct(${productList[i].id})></td>
+                <td><input type="button" class="btn btn-outline-warning" value="Update" onclick=PrintDataToUpdateProduct(${productList[i].id})></td>
                 </tr>`
             }
     }    
