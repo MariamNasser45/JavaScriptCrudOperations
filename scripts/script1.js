@@ -81,7 +81,9 @@ function AddProduct()
 
     if(productList!=null && productList.length!=0)
     {
-        var lastIndex = (productList.length)+1; 
+        var length = (productList.length); 
+
+        var lastIndex = (productList[length-1].id)+1
     }
     else
     lastIndex=1;
